@@ -10,4 +10,4 @@ echo "
 keystone:
   authentication:
     url: http://localhost:5000/v3/auth/tokens
-">> src/main/resources/login.yml
+">> uaa/src/main/resources/uaa.yml

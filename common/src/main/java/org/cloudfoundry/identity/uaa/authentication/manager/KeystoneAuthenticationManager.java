@@ -17,18 +17,20 @@ package org.cloudfoundry.identity.uaa.authentication.manager;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 
 import java.util.Map;
 
-public class KeystoneAuthenticationManager {
+public class KeystoneAuthenticationManager extends RestAuthenticationManager {
 
     public KeystoneAuthenticationManager() {
         
     }
 
 
-    
+    @Override
     protected boolean evaluateResponse(Authentication authentication, ResponseEntity<Map> response) {
         boolean v2 = true;
         Map<String, Object> map = (Map<String, Object>)response.getBody().get("access");
@@ -40,6 +42,7 @@ public class KeystoneAuthenticationManager {
         return (authentication.getPrincipal().toString().equals(user.get(v2?"username":"name")));
     }
 
+    @Override
     protected KeystoneAuthenticationRequest getParameters(String username, String password) {
         // {"auth":{"tenantName": "", "passwordCredentials": {"username": "marissa","password": "koala"}}}
         if (getLoginUrl()!=null && getLoginUrl().indexOf("/v2.0")>0) {
@@ -52,9 +55,6 @@ public class KeystoneAuthenticationManager {
 
     }
 
-    public String getLoginUrl() {
-        return null;
-    }
 
     public static interface KeystoneAuthenticationRequest {
     }

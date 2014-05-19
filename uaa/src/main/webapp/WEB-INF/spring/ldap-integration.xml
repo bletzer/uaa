@@ -29,8 +29,8 @@
 
     <bean id="ldapLoginAuthenticationMgr" class="org.cloudfoundry.identity.uaa.authentication.manager.LdapLoginAuthenticationManager">
         <property name="userDatabase" ref="userDatabase" />
+        <property name="origin" value="ldap"/>
     </bean>
-
 
     <beans profile="ldap-test">
         <security:ldap-server id="ldap-server" 
@@ -38,7 +38,6 @@
             root="dc=test,dc=com"
             port="33389"
         />
-
         <bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
             <constructor-arg value="ldap://localhost:33389/"/>
         </bean>

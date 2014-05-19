@@ -16,4 +16,4 @@ ldap:
     password: 'password'
     searchBase: 'dc=test,dc=com'
     searchFilter: 'cn={0}'
-">> src/main/resources/login.yml
+">> uaa/src/main/resources/uaa.yml
